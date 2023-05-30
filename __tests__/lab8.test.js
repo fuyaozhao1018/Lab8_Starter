@@ -51,14 +51,15 @@ describe('Basic user flow for Website', () => {
     const prodItems = await page.$('product-item');
 
     // Grab the shadowRoot of that element (it's a property), then query a button from that shadowRoot.
-    const shadowRoot = await productItem.shadowRoot(); 
+    const shadowRoot = await prodItems.shadowRoot(); 
+    const button = await shadowRoot.$('button'); // Query the button inside the shadow root
 
     // Once you have the button, you can click it and check the innerText property of the button.
     await button.click();
     const buttonText = await button.innerText().jsonValue();
     // Once you have the innerText property, use innerText.jsonValue() to get the text value of it
     expect(buttonText).toBe('Remove from Cart');
-    
+
   }, 2500);
 
   // Check to make sure that after clicking "Add to Cart" on every <product-item> that the Cart
